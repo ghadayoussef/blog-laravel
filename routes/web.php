@@ -14,3 +14,14 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/posts',function(){
+    return view('posts.index');
+});
+
+Route::get('/posts', 'PostController@index')->name('posts.index');
+Route::get('posts/create','PostController@create');
+Route::post('posts','PostController@store');
+Route::get('/posts/{post}', 'PostController@show')->name('posts.show');
+Route::get('/posts/{post}/edit','PostController@edit')->name('posts.edit');
+Route::delete('/post/{post}','PostController@destroy')->name('posts.destroy');
+Route::patch('/post/{post}','PostController@update')->name('posts.update');
