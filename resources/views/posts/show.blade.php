@@ -1,4 +1,4 @@
-@extends('layouts.app')
+<!-- @extends('layouts.app')
 @section('content')
 <table class="table">
 <tr>
@@ -11,4 +11,4 @@
 </tr>
 
 </table>
-@endsection
+@endsection -->

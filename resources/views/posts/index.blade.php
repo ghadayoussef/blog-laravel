@@ -5,23 +5,25 @@
     <tr>
       <th scope="col">#</th>
       <th scope="col">title</th>
+      <th scope="col">created by</th>
       <th scope="col">content</th>
       <th scope="col">Created at</th>
       <th scope="col">actions</th>
     </tr>
   </thead>
   <tbody>
-    @foreach($posts as $index => $value)
+    @foreach($posts as $index => $post)
     <tr>
-    <th scope="row">{{$value['id']}}</th>
-      <td>{{$value['title']}}</td>
-      <td>{{$value['content']}}</td>
-      <td>{{$value['created_at']}}</td>
+    <th scope="row">{{$post['id']}}</th>      
+      <td>{{$post['title']}}</td>
+      <td>{{$post->user->name}}</td>
+      <td>{{$post['content']}}</td>
+      <td>{{$post['created_at']}}</td>
       <td>
         
-        <form action="{{route('posts.destroy',['post' => $value['id']])}}" method="post">
-        <a class="btn btn-primary" style="align" href="{{route('posts.show',['post' => $value['id']])}}" role="button">Show</a>
-        <a class="btn btn-primary" style="align" href="{{route('posts.edit',['post' => $value['id']])}}" role="button">Edit</a>
+        <form action="{{route('posts.destroy',['post' => $post['id']])}}" method="post">
+        <a class="btn btn-primary" style="align" href="{{route('posts.show',['post' => $post['id']])}}" role="button">Show</a>
+        <a class="btn btn-primary" style="align" href="{{route('posts.edit',['post' => $post['id']])}}" role="button">Edit</a>
         <button type="submit" class="btn btn-primary" >Delete</button>
        @method('delete')
        @csrf
