@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Requests;
+
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-class StorePostRequest extends FormRequest
+
+class UpdatePostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +15,6 @@ class StorePostRequest extends FormRequest
     public function authorize()
     {
         return true;
-        
     }
 
     /**
@@ -24,13 +25,16 @@ class StorePostRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|unique:posts|min:3',
-            'content' => 'required|unique:posts|min:10'
-        ];   
-     }
+
+            'title' => [
+                'required',
+                //Rule::unique('posts', 'title')->ignore($this->post),
+                Rule::unique('posts')->ignore($this->post),
+                'min:3'
+                ],
+
+            'content' => ['required','min:10',Rule::unique('posts')->ignore($this->post)]
+            
+            ];    
+    }
 }
-
-
-
-
-

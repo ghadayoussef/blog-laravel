@@ -7,6 +7,7 @@
       <th scope="col">title</th>
       <th scope="col">created by</th>
       <th scope="col">content</th>
+      <th scope="col">slug</th>
       <th scope="col">Created at</th>
       <th scope="col">actions</th>
     </tr>
@@ -18,6 +19,7 @@
       <td>{{$post['title']}}</td>
       <td>{{$post->user->name}}</td>
       <td>{{$post['content']}}</td>
+      <td>{{$post['slug']}}</td>
       <td>{{$post['created_at']}}</td>
       <td>
         

@@ -11,9 +11,9 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 // Route::get('/posts',function(){
 //     return view('posts.index');
 // });
@@ -33,3 +33,6 @@ Route::group(['middleware'=>'auth'],function(){
     Route::delete('/post/{post}','PostController@destroy')->name('posts.destroy');
     Route::patch('/post/{post}','PostController@update')->name('posts.update');
 });
+
+Route::get('login/github', 'Auth\LoginController@redirectToProvider');
+Route::get('login/github/callback', 'Auth\LoginController@handleProviderCallback');

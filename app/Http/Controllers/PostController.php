@@ -7,8 +7,13 @@
 namespace App\Http\Controllers;
 use App\Post;
 use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
+
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -53,16 +58,26 @@ class PostController extends Controller
         return view('posts.edit',['post' => $post]);
         
     }
-    function update(StorePostRequest $request,$id){
+    function update(UpdatePostRequest $request,$id){
         $post = Post::find($id)->firstOrFail();
         //$post = Post::where('id',$id);
+        // Validator::make($data, [
+        //     'content' => [
+        //     'required',
+        //     Rule::unique('posts')->ignore($this->$id),
+        // ]
+        // ]);
         $post->update(['title' => $request->title,
                         'content' => $request->content]);
 
         return redirect()->route('posts.index');
 
     }
+    function upload(StorePostRequest $request){
 
+        $this->validate($request,['select_file' =>'required|image|mimes:jpeg,jpg,png,gif|max:2048']);
+        $image = $request->file('select_file');
+    }
 
 
 }
