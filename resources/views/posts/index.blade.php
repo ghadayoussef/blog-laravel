@@ -20,13 +20,13 @@
       <td>{{$post->user->name}}</td>
       <td>{{$post['content']}}</td>
       <td>{{$post['slug']}}</td>
-      <td>{{$post['created_at']}}</td>
+      <td>{{$post->created_at->format('d-m-Y')}}</td>
       <td>
         
         <form action="{{route('posts.destroy',['post' => $post['id']])}}" method="post">
         <a class="btn btn-primary" style="align" href="{{route('posts.show',['post' => $post['id']])}}" role="button">Show</a>
-        <a class="btn btn-primary" style="align" href="{{route('posts.edit',['post' => $post['id']])}}" role="button">Edit</a>
-        <button type="submit" class="btn btn-primary" >Delete</button>
+        <a class="btn bg-info" style="align" href="{{route('posts.edit',['post' => $post['id']])}}" role="button">Edit</a>
+        <button type="submit" class="btn bg-danger" >Delete</button>
        @method('delete')
        @csrf
         </form>

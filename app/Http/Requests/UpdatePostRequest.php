@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-
+use App\Post;
 class UpdatePostRequest extends FormRequest
 {
     /**
@@ -24,17 +24,19 @@ class UpdatePostRequest extends FormRequest
      */
     public function rules()
     {
+        $post = Post::find($this->post);
+        //return dd($post->title);
         return [
-
             'title' => [
                 'required',
-                //Rule::unique('posts', 'title')->ignore($this->post),
+                //Rule::unique('posts')->ignore($this->post),
                 Rule::unique('posts')->ignore($this->post),
                 'min:3'
                 ],
-
-            'content' => ['required','min:10',Rule::unique('posts')->ignore($this->post)]
+            'content' => ['required','min:10',
+            //Rule::unique('posts')->ignore($this->post)
+            ]
             
-            ];    
+            ]; 
     }
 }

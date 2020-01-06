@@ -26,18 +26,32 @@ class PostController extends Controller
         return view('posts.create');
     }
     function store(StorePostRequest $request){
-        //$validated = $request->validated();
-        //dd($validated->title);
-        Post::create([
-            'title' => $request->title,
-            'content' => $request->content,
-            'user_id' => $request->user()->id
-        ]);
-       return redirect()->route('posts.index');
+    //     Post::create([
+    //         'title' => $request->title,
+    //         'content' => $request->content,
+    //         'user_id' => $request->user()->id
+    //     ]);
+    //    return redirect()->route('posts.index');
+    $post = new Post();
+    $post->title = $request->title;
+    $post->content = $request->content;
+    $post->user_id = $request->user()->id;
+    if ($request->hasFile('image')) {
+        $file = $request->image;
+        $extension = $file->getClientOriginalExtension();
+        $filename = time(). "." .$extension;
+        $file->move("uploads/post/",$filename);
+        $post->image = $filename;
+    }else{
+       
+        $post->image = "";
+    }
+    $post->save();
+    return redirect()->route('posts.index');
     }
     function show($id){
         $post = Post::find($id);
-        return $post;
+        //return $post;
         return view('posts.show',['post' =>$post]);
     }
     // function show(Post $post,$slug){
@@ -58,7 +72,7 @@ class PostController extends Controller
         return view('posts.edit',['post' => $post]);
         
     }
-    function update(UpdatePostRequest $request,$id){
+    function update(StorePostRequest $request,$id){
         $post = Post::find($id)->firstOrFail();
         //$post = Post::where('id',$id);
         // Validator::make($data, [
